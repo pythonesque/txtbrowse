@@ -2,15 +2,15 @@ SHELL = /bin/sh
 
 srcdir = .
 
-sources = main.c
+sources = window.c main.c splay.c
 
 .SUFFIXES:
 .SUFFIXES: .c .o
 
-CC = gcc -O -std=c11
+CC = gcc -O3 -std=c11
 DEFS =
 CDEBUG = -g
-WFLAGS = -Wall -Wpedantic -Wextra -Werror
+WFLAGS = -Wall -pedantic-errors -Wextra
 CFLAGS = $(CDEBUG) -I. -I$(srcdir) $(DEFS) $(WFLAGS)
 LDFLAGS = $(CDEBUG)
 LDLIBS =
