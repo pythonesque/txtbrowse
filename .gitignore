@@ -1,4 +1,7 @@
 *.d
 *.o
 *.swp
-txtbrowse
+callgrind.out.*
+cachegrind.out.*
+/txtbrowse
+/test

@@ -2,7 +2,7 @@ SHELL = /bin/sh
 
 srcdir = .
 
-sources = window.c main.c splay.c
+sources = window.c splay.c hash.c qsort.c mergesort.c
 
 .SUFFIXES:
 .SUFFIXES: .c .o
@@ -16,12 +16,15 @@ LDFLAGS = $(CDEBUG)
 LDLIBS =
 
 .PHONY: all
-all: txtbrowse
+all: txtbrowse test
 
 objects = $(sources:.c=.o)
 
-txtbrowse: $(objects)
-	$(CC) $(LDFLAGS) -o $@ $(objects) $(LDLIBS)
+txtbrowse: $(objects) main.o
+	$(CC) $(LDFLAGS) -o $@ $(objects) main.o $(LDLIBS)
+
+test: $(objects) test.o
+	$(CC) $(LDFLAGS) -o $@ $(objects) test.o $(LDLIBS)
 
 %.d: %.c
 	@set -e; rm -f $@; \
@@ -29,7 +32,7 @@ txtbrowse: $(objects)
 	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
 	rm -f $@.$$$$
 
--include $(sources:.c=.d)
+-include $(sources:.c=.d) main.d test.d
 
 .PHONY: clean
 clean:
